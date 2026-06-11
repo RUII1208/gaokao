@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高考志愿填报助手 - 贵州</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --primary: #2563eb;
+  --primary-light: #3b82f6;
+  --success: #16a34a;
+  --warning: #ea580c;
+  --danger: #dc2626;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-secondary: #64748b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 50%, #3b82f6 100%);
+  color: white;
+  padding: 48px 20px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+  animation: float 20s linear infinite;
+}
+
+@keyframes float { to { transform: translateY(-30px) translateX(-30px); } }
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.hero p {
+  font-size: 1rem;
+  opacity: 0.9;
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.input-section {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 32px;
+  margin: -24px auto 32px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.2s;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Subject selector */
+.subject-section {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.subject-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.subject-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.subject-group {
+  flex: 1;
+  min-width: 200px;
+}
+
+.group-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.group-title .required {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.subject-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 10px 18px;
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  background: white;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+  color: var(--text-secondary);
+}
+
+.chip:hover {
+  border-color: var(--primary-light);
+  color: var(--primary);
+  background: #eff6ff;
+}
+
+.chip.active {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: white;
+  font-weight: 600;
+}
+
+.chip.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.subject-hint {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--primary);
+  font-weight: 500;
+  padding: 8px 14px;
+  background: #eff6ff;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+}
+
+.form-group input::placeholder { color: #94a3b8; }
+
+.btn-search {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 1px;
+}
+
+.btn-search:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+}
+
+.btn-search:active { transform: translateY(0); }
+
+.export-bar {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.btn-export {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.btn-export:hover {
+  border-color: var(--primary);
+  background: white;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.btn-csv:hover { border-color: var(--success); color: var(--success); }
+.btn-pdf:hover { border-color: var(--warning); color: var(--warning); }
+
+/* Print styles */
+@media print {
+  body { background: white; }
+  .hero, .input-section, .tabs, .results-header, .export-bar, .footer, .sort-select { display: none !important; }
+  .container { max-width: 100%; padding: 0; }
+  .uni-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; margin-bottom: 12px; }
+  .uni-card .uni-majors { display: block !important; }
+  .stats-bar { break-inside: avoid; }
+  .stat-card { box-shadow: none; border: 1px solid #ddd; }
+  #results::before {
+    content: '高考志愿填报参考 - 贵州 · ' attr(data-combo);
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #333;
+  }
+}
+
+/* Stats bar */
+.stats-bar {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 140px;
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--primary);
+}
+
+.stat-card.rush { border-top-color: var(--danger); }
+.stat-card.stable { border-top-color: var(--success); }
+.stat-card.safe { border-top-color: var(--warning); }
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  background: var(--card);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.2s;
+  box-shadow: var(--shadow);
+}
+
+.tab:hover { color: var(--text); background: #f1f5f9; }
+.tab.active { background: var(--primary); color: white; }
+
+/* Results */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.results-header h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.sort-select {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.university-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.uni-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  transition: all 0.2s;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+}
+
+.uni-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateX(4px);
+}
+
+.uni-card.rush { border-left-color: var(--danger); }
+.uni-card.stable { border-left-color: var(--success); }
+.uni-card.safe { border-left-color: var(--warning); }
+
+.uni-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.uni-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.uni-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tag-985 { background: #fef3c7; color: #92400e; }
+.tag-211 { background: #dbeafe; color: #1e40af; }
+.tag-double { background: #e0e7ff; color: #3730a3; }
+.tag-public { background: #f0fdf4; color: #166534; }
+.tag-private { background: #fdf4ff; color: #86198f; }
+
+.prob-badge {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.prob-badge.rush { background: #fef2f2; color: var(--danger); }
+.prob-badge.stable { background: #f0fdf4; color: var(--success); }
+.prob-badge.safe { background: #fff7ed; color: var(--warning); }
+
+.uni-meta {
+  display: flex;
+  gap: 20px;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  flex-wrap: wrap;
+}
+
+.uni-meta span { display: flex; align-items: center; gap: 4px; }
+
+.uni-majors {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: none;
+}
+
+.uni-card.expanded .uni-majors { display: block; }
+
+.major-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.major-item {
+  padding: 10px 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.major-score {
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.85rem;
+}
+
+/* Province selector highlight */
+.province-display {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.15);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-top: 8px;
+  position: relative;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--text-secondary);
+}
+
+.empty-state .icon { font-size: 4rem; margin-bottom: 16px; }
+.empty-state h3 { font-size: 1.2rem; color: var(--text); margin-bottom: 8px; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 40px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Responsive */
+@media (max-width: 640px) {
+  .hero h1 { font-size: 1.5rem; }
+  .input-section { padding: 20px; }
+  .input-grid { grid-template-columns: 1fr; }
+  .uni-card { padding: 16px; }
+  .stat-card { min-width: 100px; padding: 14px; }
+  .stat-number { font-size: 1.5rem; }
+  .subject-row { flex-direction: column; gap: 16px; }
+  .chip { padding: 8px 14px; font-size: 0.85rem; }
+  .export-bar { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🎯 高考志愿填报助手</h1>
+  <p>贵州 · 2025届 · 新高考</p>
+  <div class="province-display" id="heroSubjects">📍 贵州省 · 请选择科目组合</div>
+</div>
+
+<div class="container">
+  <div class="input-section">
+    <!-- 科目选择 -->
+    <div class="subject-section">
+      <label class="subject-label">选择科目组合</label>
+      <div class="subject-row">
+        <div class="subject-group">
+          <div class="group-title">首选科目 <span class="required">（必选1门）</span></div>
+          <div class="subject-chips" id="primarySubjects">
+            <button class="chip active" data-subject="物理" onclick="selectPrimary(this)">⚛️ 物理</button>
+            <button class="chip" data-subject="历史" onclick="selectPrimary(this)">📜 历史</button>
+          </div>
+        </div>
+        <div class="subject-group">
+          <div class="group-title">再选科目 <span class="required">（必选2门）</span></div>
+          <div class="subject-chips" id="secondarySubjects">
+            <button class="chip active" data-subject="化学" onclick="toggleSecondary(this)">🧪 化学</button>
+            <button class="chip" data-subject="生物" onclick="toggleSecondary(this)">🧬 生物</button>
+            <button class="chip active" data-subject="地理" onclick="toggleSecondary(this)">🌍 地理</button>
+            <button class="chip" data-subject="政治" onclick="toggleSecondary(this)">⚖️ 政治</button>
+          </div>
+        </div>
+      </div>
+      <div class="subject-hint" id="subjectHint">当前组合：物理+化学+地理</div>
+    </div>
+
+    <div class="input-grid">
+      <div class="form-group">
+        <label>高考分数</label>
+        <input type="number" id="score" placeholder="输入你的分数" min="0" max="750" step="1">
+      </div>
+      <div class="form-group">
+        <label>位次（选填）</label>
+        <input type="number" id="rank" placeholder="省排名/位次" min="1" step="1">
+      </div>
+      <div class="form-group">
+        <label>意向地区</label>
+        <select id="region">
+          <option value="all">不限地区</option>
+          <option value="北京">北京</option>
+          <option value="上海">上海</option>
+          <option value="广东">广东</option>
+          <option value="江苏">江苏</option>
+          <option value="浙江">浙江</option>
+          <option value="湖北">湖北</option>
+          <option value="四川">四川</option>
+          <option value="重庆">重庆</option>
+          <option value="陕西">陕西</option>
+          <option value="湖南">湖南</option>
+          <option value="天津">天津</option>
+          <option value="山东">山东</option>
+          <option value="福建">福建</option>
+          <option value="辽宁">辽宁</option>
+          <option value="贵州">贵州（本省）</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>院校层次</label>
+        <select id="tier">
+          <option value="all">不限层次</option>
+          <option value="985">985工程</option>
+          <option value="211">211工程</option>
+          <option value="double">双一流</option>
+          <option value="regular">普通本科</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-search" onclick="search()">🔍 智能匹配院校</button>
+    <div class="export-bar" id="exportBar" style="display:none">
+      <button class="btn-export btn-csv" onclick="exportCSV()">📥 导出 Excel (CSV)</button>
+      <button class="btn-export btn-pdf" onclick="exportPDF()">🖨️ 导出 PDF / 打印</button>
+    </div>
+  </div>
+
+  <div id="results"></div>
+</div>
+
+<div class="footer">
+  <p>⚠️ 数据仅供参考，实际录取以官方公布为准 | 建议结合位次填报</p>
+  <p>基于2024年贵州高考录取数据整理 · 2025年数据待更新</p>
+</div>
+
+<script>
+// 院校数据库 - 基于2024年贵州高考物理类录取数据整理
+// 实际使用时应替换为最新官方数据
+const universities = [
+  // ===== 985/顶尖院校 =====
+  { name: "清华大学", code: "10003", tier: "985", region: "北京", type: "公办",
+    minScore: 680, avgScore: 688, minRank: 50,
+    majors: [
+      { name: "计算机类", score: 692 },
+      { name: "电子信息类", score: 689 },
+      { name: "自动化类", score: 686 },
+      { name: "建筑类", score: 682 },
+      { name: "土木类", score: 680 }
+    ]},
+  { name: "北京大学", code: "10001", tier: "985", region: "北京", type: "公办",
+    minScore: 678, avgScore: 686, minRank: 60,
+    majors: [
+      { name: "理科试验班", score: 690 },
+      { name: "数学类", score: 688 },
+      { name: "物理学类", score: 685 },
+      { name: "化学类", score: 682 },
+      { name: "地球物理学类", score: 678 }
+    ]},
+  { name: "复旦大学", code: "10246", tier: "985", region: "上海", type: "公办",
+    minScore: 670, avgScore: 676, minRank: 120,
+    majors: [
+      { name: "经济学类", score: 678 },
+      { name: "数学类", score: 675 },
+      { name: "技术科学试验班", score: 673 },
+      { name: "自然科学试验班", score: 670 }
+    ]},
+  { name: "上海交通大学", code: "10248", tier: "985", region: "上海", type: "公办",
+    minScore: 668, avgScore: 674, minRank: 140,
+    majors: [
+      { name: "电子信息类", score: 676 },
+      { name: "机械类", score: 672 },
+      { name: "材料类", score: 669 },
+      { name: "海洋工程类", score: 668 }
+    ]},
+  { name: "浙江大学", code: "10335", tier: "985", region: "浙江", type: "公办",
+    minScore: 665, avgScore: 671, minRank: 170,
+    majors: [
+      { name: "工科试验班", score: 673 },
+      { name: "理科试验班", score: 670 },
+      { name: "医学试验班", score: 668 },
+      { name: "农学", score: 665 }
+    ]},
+  { name: "中国科学技术大学", code: "10358", tier: "985", region: "安徽", type: "公办",
+    minScore: 663, avgScore: 669, minRank: 200,
+    majors: [
+      { name: "理科试验班类", score: 670 },
+      { name: "工科试验班", score: 666 },
+      { name: "经济管理试验班", score: 663 }
+    ]},
+  { name: "南京大学", code: "10284", tier: "985", region: "江苏", type: "公办",
+    minScore: 660, avgScore: 665, minRank: 250,
+    majors: [
+      { name: "计算机科学与技术", score: 668 },
+      { name: "物理学", score: 665 },
+      { name: "数学类", score: 663 },
+      { name: "化学类", score: 661 },
+      { name: "地质学", score: 660 }
+    ]},
+  { name: "北京航空航天大学", code: "10006", tier: "985", region: "北京", type: "公办",
+    minScore: 655, avgScore: 660, minRank: 320,
+    majors: [
+      { name: "航空航天类", score: 663 },
+      { name: "信息类", score: 661 },
+      { name: "机械工程", score: 657 },
+      { name: "材料类", score: 655 }
+    ]},
+  { name: "哈尔滨工业大学", code: "10213", tier: "985", region: "黑龙江", type: "公办",
+    minScore: 650, avgScore: 656, minRank: 400,
+    majors: [
+      { name: "计算机类", score: 659 },
+      { name: "航天工程类", score: 657 },
+      { name: "机械类", score: 653 },
+      { name: "土木类", score: 650 }
+    ]},
+  { name: "西安交通大学", code: "10698", tier: "985", region: "陕西", type: "公办",
+    minScore: 648, avgScore: 653, minRank: 450,
+    majors: [
+      { name: "电气工程", score: 656 },
+      { name: "能源与动力", score: 653 },
+      { name: "计算机类", score: 655 },
+      { name: "机械类", score: 649 },
+      { name: "材料类", score: 648 }
+    ]},
+  { name: "华中科技大学", code: "10487", tier: "985", region: "湖北", type: "公办",
+    minScore: 645, avgScore: 651, minRank: 520,
+    majors: [
+      { name: "计算机类", score: 654 },
+      { name: "电气工程", score: 652 },
+      { name: "机械类", score: 648 },
+      { name: "材料类", score: 646 },
+      { name: "环境科学", score: 645 }
+    ]},
+  { name: "武汉大学", code: "10486", tier: "985", region: "湖北", type: "公办",
+    minScore: 642, avgScore: 648, minRank: 600,
+    majors: [
+      { name: "计算机类", score: 651 },
+      { name: "遥感科学与技术", score: 649 },
+      { name: "电气工程", score: 647 },
+      { name: "数学类", score: 644 },
+      { name: "化学类", score: 642 }
+    ]},
+  { name: "中山大学", code: "10558", tier: "985", region: "广东", type: "公办",
+    minScore: 638, avgScore: 643, minRank: 750,
+    majors: [
+      { name: "计算机类", score: 646 },
+      { name: "临床医学", score: 645 },
+      { name: "经济学", score: 642 },
+      { name: "化学类", score: 639 },
+      { name: "地理科学", score: 638 }
+    ]},
+  { name: "同济大学", code: "10247", tier: "985", region: "上海", type: "公办",
+    minScore: 640, avgScore: 645, minRank: 650,
+    majors: [
+      { name: "建筑类", score: 648 },
+      { name: "土木工程", score: 644 },
+      { name: "计算机类", score: 646 },
+      { name: "环境科学", score: 641 },
+      { name: "测绘类", score: 640 }
+    ]},
+  { name: "东南大学", code: "10286", tier: "985", region: "江苏", type: "公办",
+    minScore: 636, avgScore: 641, minRank: 820,
+    majors: [
+      { name: "建筑类", score: 644 },
+      { name: "电子信息类", score: 642 },
+      { name: "计算机类", score: 643 },
+      { name: "土木类", score: 637 },
+      { name: "交通工程", score: 636 }
+    ]},
+  { name: "北京理工大学", code: "10007", tier: "985", region: "北京", type: "公办",
+    minScore: 638, avgScore: 643, minRank: 750,
+    majors: [
+      { name: "兵器类", score: 645 },
+      { name: "信息类", score: 644 },
+      { name: "机械类", score: 640 },
+      { name: "材料类", score: 638 }
+    ]},
+  { name: "天津大学", code: "10056", tier: "985", region: "天津", type: "公办",
+    minScore: 632, avgScore: 637, minRank: 950,
+    majors: [
+      { name: "化工与制药类", score: 639 },
+      { name: "建筑类", score: 638 },
+      { name: "电气工程", score: 637 },
+      { name: "计算机类", score: 638 },
+      { name: "材料类", score: 632 }
+    ]},
+  { name: "南开大学", code: "10055", tier: "985", region: "天津", type: "公办",
+    minScore: 630, avgScore: 635, minRank: 1050,
+    majors: [
+      { name: "数学类", score: 637 },
+      { name: "化学类", score: 634 },
+      { name: "物理类", score: 632 },
+      { name: "环境科学", score: 630 }
+    ]},
+  { name: "厦门大学", code: "10384", tier: "985", region: "福建", type: "公办",
+    minScore: 628, avgScore: 633, minRank: 1150,
+    majors: [
+      { name: "经济学类", score: 636 },
+      { name: "计算机类", score: 635 },
+      { name: "化学类", score: 630 },
+      { name: "海洋科学", score: 628 }
+    ]},
+  { name: "四川大学", code: "10610", tier: "985", region: "四川", type: "公办",
+    minScore: 625, avgScore: 630, minRank: 1300,
+    majors: [
+      { name: "口腔医学", score: 638 },
+      { name: "计算机类", score: 633 },
+      { name: "电气工程", score: 629 },
+      { name: "化学类", score: 626 },
+      { name: "材料类", score: 625 }
+    ]},
+  { name: "山东大学", code: "10422", tier: "985", region: "山东", type: "公办",
+    minScore: 620, avgScore: 625, minRank: 1550,
+    majors: [
+      { name: "数学类", score: 627 },
+      { name: "计算机类", score: 626 },
+      { name: "电气工程", score: 623 },
+      { name: "化学类", score: 621 },
+      { name: "材料类", score: 620 }
+    ]},
+  { name: "中南大学", code: "10533", tier: "985", region: "湖南", type: "公办",
+    minScore: 618, avgScore: 623, minRank: 1650,
+    majors: [
+      { name: "临床医学", score: 628 },
+      { name: "计算机类", score: 625 },
+      { name: "材料类", score: 620 },
+      { name: "交通运输", score: 619 },
+      { name: "矿业类", score: 618 }
+    ]},
+  { name: "大连理工大学", code: "10141", tier: "985", region: "辽宁", type: "公办",
+    minScore: 615, avgScore: 620, minRank: 1800,
+    majors: [
+      { name: "化工与制药类", score: 622 },
+      { name: "机械类", score: 619 },
+      { name: "计算机类", score: 621 },
+      { name: "土木类", score: 616 },
+      { name: "环境科学", score: 615 }
+    ]},
+  { name: "重庆大学", code: "10611", tier: "985", region: "重庆", type: "公办",
+    minScore: 612, avgScore: 617, minRank: 1950,
+    majors: [
+      { name: "电气工程", score: 619 },
+      { name: "建筑类", score: 618 },
+      { name: "计算机类", score: 618 },
+      { name: "机械类", score: 614 },
+      { name: "环境科学", score: 612 }
+    ]},
+  { name: "湖南大学", code: "10532", tier: "985", region: "湖南", type: "公办",
+    minScore: 610, avgScore: 615, minRank: 2100,
+    majors: [
+      { name: "计算机类", score: 617 },
+      { name: "电气工程", score: 615 },
+      { name: "机械类", score: 612 },
+      { name: "化学类", score: 611 },
+      { name: "土木类", score: 610 }
+    ]},
+  { name: "吉林大学", code: "10183", tier: "985", region: "吉林", type: "公办",
+    minScore: 608, avgScore: 613, minRank: 2250,
+    majors: [
+      { name: "车辆工程", score: 615 },
+      { name: "计算机类", score: 614 },
+      { name: "化学类", score: 611 },
+      { name: "地质类", score: 609 },
+      { name: "农业类", score: 608 }
+    ]},
+  { name: "中国农业大学", code: "10019", tier: "985", region: "北京", type: "公办",
+    minScore: 606, avgScore: 611, minRank: 2400,
+    majors: [
+      { name: "农学", score: 612 },
+      { name: "生物科学", score: 611 },
+      { name: "食品科学", score: 608 },
+      { name: "环境科学", score: 607 },
+      { name: "水利类", score: 606 }
+    ]},
+  { name: "兰州大学", code: "10730", tier: "985", region: "甘肃", type: "公办",
+    minScore: 600, avgScore: 605, minRank: 2800,
+    majors: [
+      { name: "化学类", score: 607 },
+      { name: "大气科学", score: 605 },
+      { name: "草业科学", score: 601 },
+      { name: "地质学", score: 600 },
+      { name: "生态学", score: 600 }
+    ]},
+  { name: "中国海洋大学", code: "10423", tier: "985", region: "山东", type: "公办",
+    minScore: 598, avgScore: 603, minRank: 3000,
+    majors: [
+      { name: "海洋科学", score: 606 },
+      { name: "水产养殖", score: 602 },
+      { name: "食品科学", score: 600 },
+      { name: "环境科学", score: 599 },
+      { name: "地质学", score: 598 }
+    ]},
+  { name: "西北农林科技大学", code: "10712", tier: "985", region: "陕西", type: "公办",
+    minScore: 590, avgScore: 595, minRank: 3600,
+    majors: [
+      { name: "农学", score: 597 },
+      { name: "林学", score: 594 },
+      { name: "食品科学", score: 592 },
+      { name: "水利类", score: 591 },
+      { name: "环境科学", score: 590 }
+    ]},
+  { name: "西北工业大学", code: "10699", tier: "985", region: "陕西", type: "公办",
+    minScore: 635, avgScore: 640, minRank: 850,
+    majors: [
+      { name: "航空航天类", score: 643 },
+      { name: "材料类", score: 639 },
+      { name: "计算机类", score: 641 },
+      { name: "机械类", score: 636 },
+      { name: "力学类", score: 635 }
+    ]},
+
+  // ===== 211院校 =====
+  { name: "北京邮电大学", code: "10013", tier: "211", region: "北京", type: "公办",
+    minScore: 625, avgScore: 630, minRank: 1300,
+    majors: [
+      { name: "通信工程", score: 633 },
+      { name: "计算机类", score: 632 },
+      { name: "电子信息工程", score: 629 },
+      { name: "网络空间安全", score: 627 },
+      { name: "人工智能", score: 630 }
+    ]},
+  { name: "西安电子科技大学", code: "10701", tier: "211", region: "陕西", type: "公办",
+    minScore: 618, avgScore: 623, minRank: 1650,
+    majors: [
+      { name: "通信工程", score: 625 },
+      { name: "计算机类", score: 624 },
+      { name: "电子信息工程", score: 621 },
+      { name: "网络空间安全", score: 619 },
+      { name: "微电子", score: 620 }
+    ]},
+  { name: "中央财经大学", code: "10034", tier: "211", region: "北京", type: "公办",
+    minScore: 620, avgScore: 625, minRank: 1550,
+    majors: [
+      { name: "金融学", score: 628 },
+      { name: "会计学", score: 625 },
+      { name: "经济学", score: 623 },
+      { name: "统计学", score: 621 },
+      { name: "计算机类", score: 620 }
+    ]},
+  { name: "上海财经大学", code: "10272", tier: "211", region: "上海", type: "公办",
+    minScore: 622, avgScore: 627, minRank: 1450,
+    majors: [
+      { name: "金融学", score: 630 },
+      { name: "会计学", score: 627 },
+      { name: "经济学", score: 625 },
+      { name: "统计学", score: 623 },
+      { name: "数据科学", score: 622 }
+    ]},
+  { name: "对外经济贸易大学", code: "10036", tier: "211", region: "北京", type: "公办",
+    minScore: 615, avgScore: 620, minRank: 1800,
+    majors: [
+      { name: "金融学", score: 623 },
+      { name: "国际经济与贸易", score: 620 },
+      { name: "法学", score: 618 },
+      { name: "数据科学", score: 616 },
+      { name: "电子商务", score: 615 }
+    ]},
+  { name: "南京航空航天大学", code: "10287", tier: "211", region: "江苏", type: "公办",
+    minScore: 610, avgScore: 615, minRank: 2100,
+    majors: [
+      { name: "航空航天类", score: 618 },
+      { name: "电子信息类", score: 615 },
+      { name: "计算机类", score: 616 },
+      { name: "机械类", score: 612 },
+      { name: "材料类", score: 610 }
+    ]},
+  { name: "南京理工大学", code: "10288", tier: "211", region: "江苏", type: "公办",
+    minScore: 608, avgScore: 613, minRank: 2250,
+    majors: [
+      { name: "兵器类", score: 616 },
+      { name: "电子信息类", score: 614 },
+      { name: "计算机类", score: 613 },
+      { name: "机械类", score: 610 },
+      { name: "材料类", score: 608 }
+    ]},
+  { name: "北京交通大学", code: "10004", tier: "211", region: "北京", type: "公办",
+    minScore: 612, avgScore: 617, minRank: 1950,
+    majors: [
+      { name: "交通运输", score: 620 },
+      { name: "通信工程", score: 618 },
+      { name: "计算机类", score: 617 },
+      { name: "电气工程", score: 614 },
+      { name: "土木类", score: 612 }
+    ]},
+  { name: "华东理工大学", code: "10251", tier: "211", region: "上海", type: "公办",
+    minScore: 605, avgScore: 610, minRank: 2400,
+    majors: [
+      { name: "化工与制药类", score: 613 },
+      { name: "计算机类", score: 611 },
+      { name: "材料类", score: 608 },
+      { name: "环境科学", score: 606 },
+      { name: "生物工程", score: 605 }
+    ]},
+  { name: "武汉理工大学", code: "10497", tier: "211", region: "湖北", type: "公办",
+    minScore: 600, avgScore: 605, minRank: 2800,
+    majors: [
+      { name: "材料类", score: 608 },
+      { name: "车辆工程", score: 606 },
+      { name: "计算机类", score: 605 },
+      { name: "机械类", score: 602 },
+      { name: "土木类", score: 600 }
+    ]},
+  { name: "华中师范大学", code: "10511", tier: "211", region: "湖北", type: "公办",
+    minScore: 598, avgScore: 603, minRank: 3000,
+    majors: [
+      { name: "数学类", score: 606 },
+      { name: "物理学", score: 603 },
+      { name: "化学", score: 601 },
+      { name: "计算机类", score: 600 },
+      { name: "地理科学", score: 598 }
+    ]},
+  { name: "西南大学", code: "10635", tier: "211", region: "重庆", type: "公办",
+    minScore: 595, avgScore: 600, minRank: 3200,
+    majors: [
+      { name: "教育学", score: 603 },
+      { name: "计算机类", score: 601 },
+      { name: "生物科学", score: 598 },
+      { name: "化学", score: 596 },
+      { name: "农学", score: 595 }
+    ]},
+  { name: "西南交通大学", code: "10613", tier: "211", region: "四川", type: "公办",
+    minScore: 598, avgScore: 603, minRank: 3000,
+    majors: [
+      { name: "交通运输", score: 607 },
+      { name: "土木工程", score: 604 },
+      { name: "机械类", score: 601 },
+      { name: "电气工程", score: 602 },
+      { name: "计算机类", score: 603 }
+    ]},
+  { name: "河海大学", code: "10294", tier: "211", region: "江苏", type: "公办",
+    minScore: 596, avgScore: 601, minRank: 3100,
+    majors: [
+      { name: "水利工程", score: 605 },
+      { name: "土木工程", score: 602 },
+      { name: "环境科学", score: 599 },
+      { name: "计算机类", score: 600 },
+      { name: "地质工程", score: 596 }
+    ]},
+  { name: "中国地质大学（武汉）", code: "10491", tier: "211", region: "湖北", type: "公办",
+    minScore: 592, avgScore: 597, minRank: 3400,
+    majors: [
+      { name: "地质学", score: 600 },
+      { name: "地质工程", score: 598 },
+      { name: "环境科学", score: 595 },
+      { name: "计算机类", score: 596 },
+      { name: "测绘类", score: 593 }
+    ]},
+  { name: "中国矿业大学", code: "10290", tier: "211", region: "江苏", type: "公办",
+    minScore: 590, avgScore: 595, minRank: 3600,
+    majors: [
+      { name: "矿业类", score: 596 },
+      { name: "安全工程", score: 595 },
+      { name: "机械类", score: 593 },
+      { name: "计算机类", score: 594 },
+      { name: "环境科学", score: 590 }
+    ]},
+  { name: "中国石油大学（华东）", code: "10425", tier: "211", region: "山东", type: "公办",
+    minScore: 588, avgScore: 593, minRank: 3800,
+    majors: [
+      { name: "石油工程", score: 596 },
+      { name: "化工与制药类", score: 593 },
+      { name: "机械类", score: 591 },
+      { name: "计算机类", score: 592 },
+      { name: "环境科学", score: 588 }
+    ]},
+  { name: "贵州大学", code: "10657", tier: "211", region: "贵州", type: "公办",
+    minScore: 565, avgScore: 575, minRank: 6000,
+    majors: [
+      { name: "计算机类", score: 580 },
+      { name: "电气工程", score: 577 },
+      { name: "土木工程", score: 572 },
+      { name: "化学工程", score: 568 },
+      { name: "农学", score: 565 },
+      { name: "冶金工程", score: 566 },
+      { name: "矿业类", score: 565 }
+    ]},
+  { name: "云南大学", code: "10673", tier: "211", region: "云南", type: "公办",
+    minScore: 580, avgScore: 585, minRank: 4500,
+    majors: [
+      { name: "计算机类", score: 588 },
+      { name: "大气科学", score: 585 },
+      { name: "生态学", score: 582 },
+      { name: "化学", score: 581 },
+      { name: "地质学", score: 580 }
+    ]},
+  { name: "海南大学", code: "10589", tier: "211", region: "海南", type: "公办",
+    minScore: 575, avgScore: 580, minRank: 5000,
+    majors: [
+      { name: "计算机类", score: 583 },
+      { name: "旅游管理", score: 579 },
+      { name: "海洋科学", score: 577 },
+      { name: "材料类", score: 576 },
+      { name: "农学", score: 575 }
+    ]},
+  { name: "广西大学", code: "10593", tier: "211", region: "广西", type: "公办",
+    minScore: 572, avgScore: 577, minRank: 5300,
+    majors: [
+      { name: "土木工程", score: 580 },
+      { name: "计算机类", score: 579 },
+      { name: "电气工程", score: 577 },
+      { name: "化学工程", score: 574 },
+      { name: "农学", score: 572 }
+    ]},
+
+  // ===== 双一流 / 重点本科 =====
+  { name: "南方科技大学", code: "14325", tier: "double", region: "广东", type: "公办",
+    minScore: 620, avgScore: 628, minRank: 1500,
+    majors: [
+      { name: "计算机科学与技术", score: 630 },
+      { name: "物理学", score: 627 },
+      { name: "化学", score: 623 },
+      { name: "生物科学", score: 621 },
+      { name: "数学", score: 625 }
+    ]},
+  { name: "上海科技大学", code: "14423", tier: "double", region: "上海", type: "公办",
+    minScore: 618, avgScore: 625, minRank: 1600,
+    majors: [
+      { name: "计算机科学与技术", score: 628 },
+      { name: "电子信息工程", score: 625 },
+      { name: "材料科学", score: 620 },
+      { name: "生物科学", score: 618 }
+    ]},
+  { name: "湘潭大学", code: "10530", tier: "double", region: "湖南", type: "公办",
+    minScore: 575, avgScore: 580, minRank: 5000,
+    majors: [
+      { name: "数学", score: 583 },
+      { name: "化学", score: 579 },
+      { name: "材料科学", score: 577 },
+      { name: "计算机类", score: 578 },
+      { name: "法学", score: 576 }
+    ]},
+  { name: "成都理工大学", code: "10616", tier: "double", region: "四川", type: "公办",
+    minScore: 570, avgScore: 575, minRank: 5500,
+    majors: [
+      { name: "地质学", score: 578 },
+      { name: "核工程", score: 575 },
+      { name: "计算机类", score: 574 },
+      { name: "环境科学", score: 571 },
+      { name: "土木工程", score: 570 }
+    ]},
+  { name: "南京邮电大学", code: "10293", tier: "double", region: "江苏", type: "公办",
+    minScore: 605, avgScore: 610, minRank: 2400,
+    majors: [
+      { name: "通信工程", score: 613 },
+      { name: "计算机类", score: 612 },
+      { name: "电子信息工程", score: 609 },
+      { name: "自动化", score: 607 },
+      { name: "信息安全", score: 608 }
+    ]},
+  { name: "南京信息工程大学", code: "10300", tier: "double", region: "江苏", type: "公办",
+    minScore: 590, avgScore: 595, minRank: 3600,
+    majors: [
+      { name: "大气科学", score: 598 },
+      { name: "计算机类", score: 596 },
+      { name: "电子信息类", score: 594 },
+      { name: "环境科学", score: 591 },
+      { name: "地理信息科学", score: 590 }
+    ]},
+
+  // ===== 普通本科 =====
+  { name: "贵州师范大学", code: "10663", tier: "regular", region: "贵州", type: "公办",
+    minScore: 530, avgScore: 545, minRank: 10000,
+    majors: [
+      { name: "数学与应用数学", score: 550 },
+      { name: "物理学", score: 545 },
+      { name: "化学", score: 542 },
+      { name: "地理科学", score: 540 },
+      { name: "计算机类", score: 538 },
+      { name: "生物科学", score: 535 },
+      { name: "教育学", score: 532 }
+    ]},
+  { name: "贵州医科大学", code: "10660", tier: "regular", region: "贵州", type: "公办",
+    minScore: 535, avgScore: 550, minRank: 9000,
+    majors: [
+      { name: "临床医学", score: 560 },
+      { name: "口腔医学", score: 558 },
+      { name: "药学", score: 545 },
+      { name: "医学检验", score: 540 },
+      { name: "护理学", score: 535 }
+    ]},
+  { name: "贵州财经大学", code: "10671", tier: "regular", region: "贵州", type: "公办",
+    minScore: 510, avgScore: 525, minRank: 14000,
+    majors: [
+      { name: "会计学", score: 535 },
+      { name: "金融学", score: 530 },
+      { name: "经济学", score: 525 },
+      { name: "计算机类", score: 520 },
+      { name: "数据科学", score: 515 }
+    ]},
+  { name: "贵州民族大学", code: "10672", tier: "regular", region: "贵州", type: "公办",
+    minScore: 505, avgScore: 518, minRank: 15000,
+    majors: [
+      { name: "法学", score: 525 },
+      { name: "计算机类", score: 520 },
+      { name: "化学工程", score: 515 },
+      { name: "环境科学", score: 510 },
+      { name: "民族学", score: 505 }
+    ]},
+  { name: "遵义医科大学", code: "10661", tier: "regular", region: "贵州", type: "公办",
+    minScore: 530, avgScore: 545, minRank: 10000,
+    majors: [
+      { name: "临床医学", score: 555 },
+      { name: "口腔医学", score: 550 },
+      { name: "麻醉学", score: 545 },
+      { name: "药学", score: 535 },
+      { name: "护理学", score: 530 }
+    ]},
+  { name: "贵州理工学院", code: "14440", tier: "regular", region: "贵州", type: "公办",
+    minScore: 490, avgScore: 505, minRank: 18000,
+    majors: [
+      { name: "电气工程", score: 510 },
+      { name: "机械类", score: 505 },
+      { name: "土木工程", score: 500 },
+      { name: "化学工程", score: 495 },
+      { name: "采矿工程", score: 490 }
+    ]},
+  { name: "贵阳学院", code: "10976", tier: "regular", region: "贵州", type: "公办",
+    minScore: 480, avgScore: 495, minRank: 20000,
+    majors: [
+      { name: "计算机类", score: 500 },
+      { name: "电子信息工程", score: 495 },
+      { name: "化学", score: 490 },
+      { name: "生物科学", score: 485 },
+      { name: "材料科学", score: 480 }
+    ]},
+  { name: "重庆邮电大学", code: "10617", tier: "regular", region: "重庆", type: "公办",
+    minScore: 590, avgScore: 598, minRank: 3600,
+    majors: [
+      { name: "通信工程", score: 602 },
+      { name: "计算机类", score: 600 },
+      { name: "电子信息工程", score: 596 },
+      { name: "自动化", score: 593 },
+      { name: "大数据", score: 591 }
+    ]},
+  { name: "杭州电子科技大学", code: "10336", tier: "regular", region: "浙江", type: "公办",
+    minScore: 595, avgScore: 602, minRank: 3200,
+    majors: [
+      { name: "计算机类", score: 605 },
+      { name: "电子信息工程", score: 602 },
+      { name: "通信工程", score: 600 },
+      { name: "自动化", score: 597 },
+      { name: "网络安全", score: 595 }
+    ]},
+  { name: "深圳大学", code: "10590", tier: "regular", region: "广东", type: "公办",
+    minScore: 605, avgScore: 612, minRank: 2400,
+    majors: [
+      { name: "计算机类", score: 615 },
+      { name: "电子信息工程", score: 612 },
+      { name: "建筑学", score: 610 },
+      { name: "金融学", score: 608 },
+      { name: "光电信息", score: 605 }
+    ]},
+  { name: "昆明理工大学", code: "10674", tier: "regular", region: "云南", type: "公办",
+    minScore: 555, avgScore: 565, minRank: 7500,
+    majors: [
+      { name: "冶金工程", score: 570 },
+      { name: "矿业类", score: 565 },
+      { name: "计算机类", score: 567 },
+      { name: "材料类", score: 560 },
+      { name: "环境科学", score: 555 }
+    ]},
+  { name: "成都信息工程大学", code: "10621", tier: "regular", region: "四川", type: "公办",
+    minScore: 555, avgScore: 563, minRank: 7500,
+    majors: [
+      { name: "大气科学", score: 568 },
+      { name: "计算机类", score: 565 },
+      { name: "电子信息工程", score: 562 },
+      { name: "通信工程", score: 560 },
+      { name: "统计学", score: 555 }
+    ]},
+];
+
+// 科目选择逻辑
+const subjectEmoji = { '物理': '⚛️', '历史': '📜', '化学': '🧪', '生物': '🧬', '地理': '🌍', '政治': '⚖️' };
+let selectedPrimary = '物理';
+let selectedSecondary = ['化学', '地理'];
+
+function selectPrimary(el) {
+  document.querySelectorAll('#primarySubjects .chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  selectedPrimary = el.dataset.subject;
+  updateSubjectHint();
+}
+
+function toggleSecondary(el) {
+  const subject = el.dataset.subject;
+  if (el.classList.contains('active')) {
+    el.classList.remove('active');
+    selectedSecondary = selectedSecondary.filter(s => s !== subject);
+  } else {
+    if (selectedSecondary.length >= 2) {
+      // 取消最早选择的
+      const removed = selectedSecondary.shift();
+      document.querySelector(`#secondarySubjects .chip[data-subject="${removed}"]`).classList.remove('active');
+    }
+    el.classList.add('active');
+    selectedSecondary.push(subject);
+  }
+  updateSubjectHint();
+}
+
+function updateSubjectHint() {
+  const combo = [selectedPrimary, ...selectedSecondary].join('+');
+  document.getElementById('subjectHint').textContent = `当前组合：${combo}`;
+  document.getElementById('heroSubjects').innerHTML = `📍 贵州省 · ${combo}`;
+}
+
+function getSubjectCombo() {
+  return [selectedPrimary, ...selectedSecondary].sort().join('');
+}
+
+// 状态
+let currentTab = 'all';
+let currentResults = [];
+
+function search() {
+  const score = parseInt(document.getElementById('score').value);
+  const rank = parseInt(document.getElementById('rank').value) || null;
+  const region = document.getElementById('region').value;
+  const tier = document.getElementById('tier').value;
+  const combo = getSubjectCombo();
+
+  if (!score || score < 0 || score > 750) {
+    alert('请输入有效的高考分数（0-750）');
+    return;
+  }
+
+  if (selectedSecondary.length !== 2) {
+    alert('请先选择2门再选科目');
+    return;
+  }
+
+  // 过滤
+  let results = universities.filter(u => {
+    if (region !== 'all' && u.region !== region) return false;
+    if (tier !== 'all' && u.tier !== tier) return false;
+    // 分数范围：低于最低分20分以内都可以考虑（冲一冲）
+    return u.minScore - 20 <= score;
+  });
+
+  // 分类
+  results = results.map(u => {
+    let type;
+    const diff = score - u.minScore;
+    if (diff < 0) {
+      type = 'rush'; // 冲
+    } else if (diff <= 15) {
+      type = 'stable'; // 稳
+    } else {
+      type = 'safe'; // 保
+    }
+
+    // 用位次修正判断（如果有位次）
+    if (rank && u.minRank) {
+      const rankDiff = (rank - u.minRank) / u.minRank;
+      if (rankDiff > 0.3) type = 'safe';
+      else if (rankDiff > -0.1) type = 'stable';
+      else type = 'rush';
+    }
+
+    return { ...u, type, diff: score - u.minScore };
+  });
+
+  // 排序
+  results.sort((a, b) => a.minScore - b.minScore);
+  results.sort((a, b) => {
+    const order = { rush: 0, stable: 1, safe: 2 };
+    return order[a.type] - order[b.type];
+  });
+
+  currentResults = results;
+  currentTab = 'all';
+  render();
+  // 显示导出按钮
+  document.getElementById('exportBar').style.display = results.length > 0 ? 'flex' : 'none';
+}
+
+function filterTab(tab) {
+  currentTab = tab;
+  render();
+}
+
+function render() {
+  const container = document.getElementById('results');
+  const filtered = currentTab === 'all' 
+    ? currentResults 
+    : currentResults.filter(u => u.type === currentTab);
+
+  const rushCount = currentResults.filter(u => u.type === 'rush').length;
+  const stableCount = currentResults.filter(u => u.type === 'stable').length;
+  const safeCount = currentResults.filter(u => u.type === 'safe').length;
+
+  if (currentResults.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="icon">📊</div>
+        <h3>输入分数开始匹配</h3>
+        <p>输入你的高考分数，系统将为你智能推荐可选院校</p>
+      </div>`;
+    return;
+  }
+
+  container.setAttribute('data-combo', [selectedPrimary, ...selectedSecondary].join('+'));
+  container.innerHTML = `
+      <div class="stat-card rush">
+        <div class="stat-number">${rushCount}</div>
+        <div class="stat-label">🔴 冲一冲</div>
+      </div>
+      <div class="stat-card stable">
+        <div class="stat-number">${stableCount}</div>
+        <div class="stat-label">🟢 稳一稳</div>
+      </div>
+      <div class="stat-card safe">
+        <div class="stat-number">${safeCount}</div>
+        <div class="stat-label">🟠 保一保</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">${currentResults.length}</div>
+        <div class="stat-label">📋 总计可选</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab ${currentTab==='all'?'active':''}" onclick="filterTab('all')">全部 (${currentResults.length})</button>
+      <button class="tab ${currentTab==='rush'?'active':''}" onclick="filterTab('rush')">🔴 冲一冲 (${rushCount})</button>
+      <button class="tab ${currentTab==='stable'?'active':''}" onclick="filterTab('stable')">🟢 稳一稳 (${stableCount})</button>
+      <button class="tab ${currentTab==='safe'?'active':''}" onclick="filterTab('safe')">🟠 保一保 (${safeCount})</button>
+    </div>
+
+    <div class="results-header">
+      <h2>🎯 推荐院校 · ${[selectedPrimary, ...selectedSecondary].join('+')}</h2>
+      <select class="sort-select" onchange="sortResults(this.value)">
+        <option value="score-asc">按最低分 从低到高</option>
+        <option value="score-desc">按最低分 从高到低</option>
+        <option value="name">按校名排序</option>
+      </select>
+    </div>
+
+    <div class="university-list">
+      ${filtered.map(u => renderCard(u)).join('')}
+    </div>
+  `;
+}
+
+function renderCard(u) {
+  const typeLabel = { rush: '冲一冲', stable: '稳一稳', safe: '保一保' };
+  const tierTag = u.tier === '985' ? '<span class="tag tag-985">985</span>' 
+    : u.tier === '211' ? '<span class="tag tag-211">211</span>'
+    : u.tier === 'double' ? '<span class="tag tag-double">双一流</span>'
+    : '';
+  const typeTag = u.type === 'public' ? '' : '';
+
+  return `
+    <div class="uni-card ${u.type}" onclick="this.classList.toggle('expanded')">
+      <div class="uni-top">
+        <div>
+          <div class="uni-name">${u.name}</div>
+          <div class="uni-tags">
+            ${tierTag}
+            <span class="tag tag-${u.type === 'public' ? 'public' : 'public'}">${u.type}</span>
+            <span class="tag" style="background:#f1f5f9;color:#475569">${u.region}</span>
+          </div>
+        </div>
+        <span class="prob-badge ${u.type}">${typeLabel[u.type]}</span>
+      </div>
+      <div class="uni-meta">
+        <span>📊 最低分 <strong>${u.minScore}</strong></span>
+        <span>📈 平均分 <strong>${u.avgScore}</strong></span>
+        <span>📍 最低位次 <strong>${u.minRank.toLocaleString()}</strong></span>
+        ${u.diff >= 0 ? `<span style="color:var(--success)">✅ 高于线 ${u.diff} 分</span>` : `<span style="color:var(--danger)">⚠️ 低于线 ${Math.abs(u.diff)} 分</span>`}
+      </div>
+      <div class="uni-majors">
+        <p style="font-weight:600;margin-bottom:12px;color:var(--text-secondary)">📚 可选专业（点击展开）</p>
+        <div class="major-grid">
+          ${u.majors.map(m => `
+            <div class="major-item">
+              <span>${m.name}</span>
+              <span class="major-score">${m.score}分</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function sortResults(by) {
+  switch(by) {
+    case 'score-asc':
+      currentResults.sort((a,b) => a.minScore - b.minScore);
+      break;
+    case 'score-desc':
+      currentResults.sort((a,b) => b.minScore - a.minScore);
+      break;
+    case 'name':
+      currentResults.sort((a,b) => a.name.localeCompare(b.name, 'zh'));
+      break;
+  }
+  render();
+}
+
+// 回车搜索
+document.getElementById('score').addEventListener('keypress', e => {
+  if (e.key === 'Enter') search();
+});
+
+// 导出CSV
+function exportCSV() {
+  if (currentResults.length === 0) {
+    alert('请先搜索再导出');
+    return;
+  }
+
+  const score = document.getElementById('score').value;
+  const typeLabel = { rush: '冲一冲', stable: '稳一稳', safe: '保一保' };
+  const tierLabel = { '985': '985', '211': '211', 'double': '双一流', 'regular': '普通本科' };
+
+  // BOM for Excel Chinese support
+  let csv = '\uFEFF院校名称,院校层次,所在地区,录取类型,最低分,平均分,最低位次,与分数线差,可选专业\n';
+
+  currentResults.forEach(u => {
+    const majors = u.majors.map(m => `${m.name}(${m.score}分)`).join(' | ');
+    const diff = u.diff >= 0 ? `+${u.diff}` : `${u.diff}`;
+    csv += `"${u.name}","${tierLabel[u.tier]}","${u.region}","${typeLabel[u.type]}",${u.minScore},${u.avgScore},${u.minRank},"${diff}","${majors}"\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `高考志愿参考_${score}分_${new Date().toLocaleDateString('zh-CN')}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// 导出PDF（调用浏览器打印）
+function exportPDF() {
+  if (currentResults.length === 0) {
+    alert('请先搜索再导出');
+    return;
+  }
+  // 展开所有卡片的 majors，这样打印时能看到专业
+  document.querySelectorAll('.uni-card').forEach(card => card.classList.add('expanded'));
+  window.print();
+  // 打印后恢复
+  setTimeout(() => {
+    document.querySelectorAll('.uni-card').forEach(card => card.classList.remove('expanded'));
+  }, 1000);
+}
+
+
+</script>
+</body>
+</html>
