@@ -1,0 +1,18 @@
+# PDF source data (already extracted to universities_data.js)
+*.pdf
+
+# Temporary extraction scripts
+extract_*.py
+decode_*.py
+verify_*.py
+generate_js.py
+
+# Temporary files
+*.txt
+*.json
+decoded_page1.txt
+char_analysis.txt
+
+# Python cache
+__pycache__/
+*.pyc

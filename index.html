@@ -597,13 +597,29 @@ body {
           <option value="浙江">浙江</option>
           <option value="湖北">湖北</option>
           <option value="四川">四川</option>
+          <option value="山东">山东</option>
+          <option value="河南">河南</option>
+          <option value="河北">河北</option>
+          <option value="湖南">湖南</option>
+          <option value="安徽">安徽</option>
+          <option value="福建">福建</option>
+          <option value="江西">江西</option>
+          <option value="辽宁">辽宁</option>
           <option value="重庆">重庆</option>
           <option value="陕西">陕西</option>
-          <option value="湖南">湖南</option>
           <option value="天津">天津</option>
-          <option value="山东">山东</option>
-          <option value="福建">福建</option>
-          <option value="辽宁">辽宁</option>
+          <option value="吉林">吉林</option>
+          <option value="黑龙江">黑龙江</option>
+          <option value="云南">云南</option>
+          <option value="广西">广西</option>
+          <option value="山西">山西</option>
+          <option value="甘肃">甘肃</option>
+          <option value="内蒙古">内蒙古</option>
+          <option value="海南">海南</option>
+          <option value="新疆">新疆</option>
+          <option value="宁夏">宁夏</option>
+          <option value="青海">青海</option>
+          <option value="西藏">西藏</option>
           <option value="贵州">贵州（本省）</option>
         </select>
       </div>
@@ -613,8 +629,8 @@ body {
           <option value="all">不限层次</option>
           <option value="985">985工程</option>
           <option value="211">211工程</option>
-          <option value="double">双一流</option>
-          <option value="regular">普通本科</option>
+          <option value="双一流">双一流</option>
+          <option value="普通本科">普通本科</option>
         </select>
       </div>
     </div>
@@ -630,644 +646,13 @@ body {
 
 <div class="footer">
   <p>⚠️ 数据仅供参考，实际录取以官方公布为准 | 建议结合位次填报</p>
-  <p>基于2024年贵州高考录取数据整理 · 2025年数据待更新</p>
+  <p>基于2025年贵州高考本科批投档数据整理 · 支持物理类+历史类</p>
 </div>
 
+<script src="universities_data.js"></script>
 <script>
-// 院校数据库 - 基于2024年贵州高考物理类录取数据整理
-// 实际使用时应替换为最新官方数据
-const universities = [
-  // ===== 985/顶尖院校 =====
-  { name: "清华大学", code: "10003", tier: "985", region: "北京", type: "公办",
-    minScore: 680, avgScore: 688, minRank: 50,
-    majors: [
-      { name: "计算机类", score: 692 },
-      { name: "电子信息类", score: 689 },
-      { name: "自动化类", score: 686 },
-      { name: "建筑类", score: 682 },
-      { name: "土木类", score: 680 }
-    ]},
-  { name: "北京大学", code: "10001", tier: "985", region: "北京", type: "公办",
-    minScore: 678, avgScore: 686, minRank: 60,
-    majors: [
-      { name: "理科试验班", score: 690 },
-      { name: "数学类", score: 688 },
-      { name: "物理学类", score: 685 },
-      { name: "化学类", score: 682 },
-      { name: "地球物理学类", score: 678 }
-    ]},
-  { name: "复旦大学", code: "10246", tier: "985", region: "上海", type: "公办",
-    minScore: 670, avgScore: 676, minRank: 120,
-    majors: [
-      { name: "经济学类", score: 678 },
-      { name: "数学类", score: 675 },
-      { name: "技术科学试验班", score: 673 },
-      { name: "自然科学试验班", score: 670 }
-    ]},
-  { name: "上海交通大学", code: "10248", tier: "985", region: "上海", type: "公办",
-    minScore: 668, avgScore: 674, minRank: 140,
-    majors: [
-      { name: "电子信息类", score: 676 },
-      { name: "机械类", score: 672 },
-      { name: "材料类", score: 669 },
-      { name: "海洋工程类", score: 668 }
-    ]},
-  { name: "浙江大学", code: "10335", tier: "985", region: "浙江", type: "公办",
-    minScore: 665, avgScore: 671, minRank: 170,
-    majors: [
-      { name: "工科试验班", score: 673 },
-      { name: "理科试验班", score: 670 },
-      { name: "医学试验班", score: 668 },
-      { name: "农学", score: 665 }
-    ]},
-  { name: "中国科学技术大学", code: "10358", tier: "985", region: "安徽", type: "公办",
-    minScore: 663, avgScore: 669, minRank: 200,
-    majors: [
-      { name: "理科试验班类", score: 670 },
-      { name: "工科试验班", score: 666 },
-      { name: "经济管理试验班", score: 663 }
-    ]},
-  { name: "南京大学", code: "10284", tier: "985", region: "江苏", type: "公办",
-    minScore: 660, avgScore: 665, minRank: 250,
-    majors: [
-      { name: "计算机科学与技术", score: 668 },
-      { name: "物理学", score: 665 },
-      { name: "数学类", score: 663 },
-      { name: "化学类", score: 661 },
-      { name: "地质学", score: 660 }
-    ]},
-  { name: "北京航空航天大学", code: "10006", tier: "985", region: "北京", type: "公办",
-    minScore: 655, avgScore: 660, minRank: 320,
-    majors: [
-      { name: "航空航天类", score: 663 },
-      { name: "信息类", score: 661 },
-      { name: "机械工程", score: 657 },
-      { name: "材料类", score: 655 }
-    ]},
-  { name: "哈尔滨工业大学", code: "10213", tier: "985", region: "黑龙江", type: "公办",
-    minScore: 650, avgScore: 656, minRank: 400,
-    majors: [
-      { name: "计算机类", score: 659 },
-      { name: "航天工程类", score: 657 },
-      { name: "机械类", score: 653 },
-      { name: "土木类", score: 650 }
-    ]},
-  { name: "西安交通大学", code: "10698", tier: "985", region: "陕西", type: "公办",
-    minScore: 648, avgScore: 653, minRank: 450,
-    majors: [
-      { name: "电气工程", score: 656 },
-      { name: "能源与动力", score: 653 },
-      { name: "计算机类", score: 655 },
-      { name: "机械类", score: 649 },
-      { name: "材料类", score: 648 }
-    ]},
-  { name: "华中科技大学", code: "10487", tier: "985", region: "湖北", type: "公办",
-    minScore: 645, avgScore: 651, minRank: 520,
-    majors: [
-      { name: "计算机类", score: 654 },
-      { name: "电气工程", score: 652 },
-      { name: "机械类", score: 648 },
-      { name: "材料类", score: 646 },
-      { name: "环境科学", score: 645 }
-    ]},
-  { name: "武汉大学", code: "10486", tier: "985", region: "湖北", type: "公办",
-    minScore: 642, avgScore: 648, minRank: 600,
-    majors: [
-      { name: "计算机类", score: 651 },
-      { name: "遥感科学与技术", score: 649 },
-      { name: "电气工程", score: 647 },
-      { name: "数学类", score: 644 },
-      { name: "化学类", score: 642 }
-    ]},
-  { name: "中山大学", code: "10558", tier: "985", region: "广东", type: "公办",
-    minScore: 638, avgScore: 643, minRank: 750,
-    majors: [
-      { name: "计算机类", score: 646 },
-      { name: "临床医学", score: 645 },
-      { name: "经济学", score: 642 },
-      { name: "化学类", score: 639 },
-      { name: "地理科学", score: 638 }
-    ]},
-  { name: "同济大学", code: "10247", tier: "985", region: "上海", type: "公办",
-    minScore: 640, avgScore: 645, minRank: 650,
-    majors: [
-      { name: "建筑类", score: 648 },
-      { name: "土木工程", score: 644 },
-      { name: "计算机类", score: 646 },
-      { name: "环境科学", score: 641 },
-      { name: "测绘类", score: 640 }
-    ]},
-  { name: "东南大学", code: "10286", tier: "985", region: "江苏", type: "公办",
-    minScore: 636, avgScore: 641, minRank: 820,
-    majors: [
-      { name: "建筑类", score: 644 },
-      { name: "电子信息类", score: 642 },
-      { name: "计算机类", score: 643 },
-      { name: "土木类", score: 637 },
-      { name: "交通工程", score: 636 }
-    ]},
-  { name: "北京理工大学", code: "10007", tier: "985", region: "北京", type: "公办",
-    minScore: 638, avgScore: 643, minRank: 750,
-    majors: [
-      { name: "兵器类", score: 645 },
-      { name: "信息类", score: 644 },
-      { name: "机械类", score: 640 },
-      { name: "材料类", score: 638 }
-    ]},
-  { name: "天津大学", code: "10056", tier: "985", region: "天津", type: "公办",
-    minScore: 632, avgScore: 637, minRank: 950,
-    majors: [
-      { name: "化工与制药类", score: 639 },
-      { name: "建筑类", score: 638 },
-      { name: "电气工程", score: 637 },
-      { name: "计算机类", score: 638 },
-      { name: "材料类", score: 632 }
-    ]},
-  { name: "南开大学", code: "10055", tier: "985", region: "天津", type: "公办",
-    minScore: 630, avgScore: 635, minRank: 1050,
-    majors: [
-      { name: "数学类", score: 637 },
-      { name: "化学类", score: 634 },
-      { name: "物理类", score: 632 },
-      { name: "环境科学", score: 630 }
-    ]},
-  { name: "厦门大学", code: "10384", tier: "985", region: "福建", type: "公办",
-    minScore: 628, avgScore: 633, minRank: 1150,
-    majors: [
-      { name: "经济学类", score: 636 },
-      { name: "计算机类", score: 635 },
-      { name: "化学类", score: 630 },
-      { name: "海洋科学", score: 628 }
-    ]},
-  { name: "四川大学", code: "10610", tier: "985", region: "四川", type: "公办",
-    minScore: 625, avgScore: 630, minRank: 1300,
-    majors: [
-      { name: "口腔医学", score: 638 },
-      { name: "计算机类", score: 633 },
-      { name: "电气工程", score: 629 },
-      { name: "化学类", score: 626 },
-      { name: "材料类", score: 625 }
-    ]},
-  { name: "山东大学", code: "10422", tier: "985", region: "山东", type: "公办",
-    minScore: 620, avgScore: 625, minRank: 1550,
-    majors: [
-      { name: "数学类", score: 627 },
-      { name: "计算机类", score: 626 },
-      { name: "电气工程", score: 623 },
-      { name: "化学类", score: 621 },
-      { name: "材料类", score: 620 }
-    ]},
-  { name: "中南大学", code: "10533", tier: "985", region: "湖南", type: "公办",
-    minScore: 618, avgScore: 623, minRank: 1650,
-    majors: [
-      { name: "临床医学", score: 628 },
-      { name: "计算机类", score: 625 },
-      { name: "材料类", score: 620 },
-      { name: "交通运输", score: 619 },
-      { name: "矿业类", score: 618 }
-    ]},
-  { name: "大连理工大学", code: "10141", tier: "985", region: "辽宁", type: "公办",
-    minScore: 615, avgScore: 620, minRank: 1800,
-    majors: [
-      { name: "化工与制药类", score: 622 },
-      { name: "机械类", score: 619 },
-      { name: "计算机类", score: 621 },
-      { name: "土木类", score: 616 },
-      { name: "环境科学", score: 615 }
-    ]},
-  { name: "重庆大学", code: "10611", tier: "985", region: "重庆", type: "公办",
-    minScore: 612, avgScore: 617, minRank: 1950,
-    majors: [
-      { name: "电气工程", score: 619 },
-      { name: "建筑类", score: 618 },
-      { name: "计算机类", score: 618 },
-      { name: "机械类", score: 614 },
-      { name: "环境科学", score: 612 }
-    ]},
-  { name: "湖南大学", code: "10532", tier: "985", region: "湖南", type: "公办",
-    minScore: 610, avgScore: 615, minRank: 2100,
-    majors: [
-      { name: "计算机类", score: 617 },
-      { name: "电气工程", score: 615 },
-      { name: "机械类", score: 612 },
-      { name: "化学类", score: 611 },
-      { name: "土木类", score: 610 }
-    ]},
-  { name: "吉林大学", code: "10183", tier: "985", region: "吉林", type: "公办",
-    minScore: 608, avgScore: 613, minRank: 2250,
-    majors: [
-      { name: "车辆工程", score: 615 },
-      { name: "计算机类", score: 614 },
-      { name: "化学类", score: 611 },
-      { name: "地质类", score: 609 },
-      { name: "农业类", score: 608 }
-    ]},
-  { name: "中国农业大学", code: "10019", tier: "985", region: "北京", type: "公办",
-    minScore: 606, avgScore: 611, minRank: 2400,
-    majors: [
-      { name: "农学", score: 612 },
-      { name: "生物科学", score: 611 },
-      { name: "食品科学", score: 608 },
-      { name: "环境科学", score: 607 },
-      { name: "水利类", score: 606 }
-    ]},
-  { name: "兰州大学", code: "10730", tier: "985", region: "甘肃", type: "公办",
-    minScore: 600, avgScore: 605, minRank: 2800,
-    majors: [
-      { name: "化学类", score: 607 },
-      { name: "大气科学", score: 605 },
-      { name: "草业科学", score: 601 },
-      { name: "地质学", score: 600 },
-      { name: "生态学", score: 600 }
-    ]},
-  { name: "中国海洋大学", code: "10423", tier: "985", region: "山东", type: "公办",
-    minScore: 598, avgScore: 603, minRank: 3000,
-    majors: [
-      { name: "海洋科学", score: 606 },
-      { name: "水产养殖", score: 602 },
-      { name: "食品科学", score: 600 },
-      { name: "环境科学", score: 599 },
-      { name: "地质学", score: 598 }
-    ]},
-  { name: "西北农林科技大学", code: "10712", tier: "985", region: "陕西", type: "公办",
-    minScore: 590, avgScore: 595, minRank: 3600,
-    majors: [
-      { name: "农学", score: 597 },
-      { name: "林学", score: 594 },
-      { name: "食品科学", score: 592 },
-      { name: "水利类", score: 591 },
-      { name: "环境科学", score: 590 }
-    ]},
-  { name: "西北工业大学", code: "10699", tier: "985", region: "陕西", type: "公办",
-    minScore: 635, avgScore: 640, minRank: 850,
-    majors: [
-      { name: "航空航天类", score: 643 },
-      { name: "材料类", score: 639 },
-      { name: "计算机类", score: 641 },
-      { name: "机械类", score: 636 },
-      { name: "力学类", score: 635 }
-    ]},
-
-  // ===== 211院校 =====
-  { name: "北京邮电大学", code: "10013", tier: "211", region: "北京", type: "公办",
-    minScore: 625, avgScore: 630, minRank: 1300,
-    majors: [
-      { name: "通信工程", score: 633 },
-      { name: "计算机类", score: 632 },
-      { name: "电子信息工程", score: 629 },
-      { name: "网络空间安全", score: 627 },
-      { name: "人工智能", score: 630 }
-    ]},
-  { name: "西安电子科技大学", code: "10701", tier: "211", region: "陕西", type: "公办",
-    minScore: 618, avgScore: 623, minRank: 1650,
-    majors: [
-      { name: "通信工程", score: 625 },
-      { name: "计算机类", score: 624 },
-      { name: "电子信息工程", score: 621 },
-      { name: "网络空间安全", score: 619 },
-      { name: "微电子", score: 620 }
-    ]},
-  { name: "中央财经大学", code: "10034", tier: "211", region: "北京", type: "公办",
-    minScore: 620, avgScore: 625, minRank: 1550,
-    majors: [
-      { name: "金融学", score: 628 },
-      { name: "会计学", score: 625 },
-      { name: "经济学", score: 623 },
-      { name: "统计学", score: 621 },
-      { name: "计算机类", score: 620 }
-    ]},
-  { name: "上海财经大学", code: "10272", tier: "211", region: "上海", type: "公办",
-    minScore: 622, avgScore: 627, minRank: 1450,
-    majors: [
-      { name: "金融学", score: 630 },
-      { name: "会计学", score: 627 },
-      { name: "经济学", score: 625 },
-      { name: "统计学", score: 623 },
-      { name: "数据科学", score: 622 }
-    ]},
-  { name: "对外经济贸易大学", code: "10036", tier: "211", region: "北京", type: "公办",
-    minScore: 615, avgScore: 620, minRank: 1800,
-    majors: [
-      { name: "金融学", score: 623 },
-      { name: "国际经济与贸易", score: 620 },
-      { name: "法学", score: 618 },
-      { name: "数据科学", score: 616 },
-      { name: "电子商务", score: 615 }
-    ]},
-  { name: "南京航空航天大学", code: "10287", tier: "211", region: "江苏", type: "公办",
-    minScore: 610, avgScore: 615, minRank: 2100,
-    majors: [
-      { name: "航空航天类", score: 618 },
-      { name: "电子信息类", score: 615 },
-      { name: "计算机类", score: 616 },
-      { name: "机械类", score: 612 },
-      { name: "材料类", score: 610 }
-    ]},
-  { name: "南京理工大学", code: "10288", tier: "211", region: "江苏", type: "公办",
-    minScore: 608, avgScore: 613, minRank: 2250,
-    majors: [
-      { name: "兵器类", score: 616 },
-      { name: "电子信息类", score: 614 },
-      { name: "计算机类", score: 613 },
-      { name: "机械类", score: 610 },
-      { name: "材料类", score: 608 }
-    ]},
-  { name: "北京交通大学", code: "10004", tier: "211", region: "北京", type: "公办",
-    minScore: 612, avgScore: 617, minRank: 1950,
-    majors: [
-      { name: "交通运输", score: 620 },
-      { name: "通信工程", score: 618 },
-      { name: "计算机类", score: 617 },
-      { name: "电气工程", score: 614 },
-      { name: "土木类", score: 612 }
-    ]},
-  { name: "华东理工大学", code: "10251", tier: "211", region: "上海", type: "公办",
-    minScore: 605, avgScore: 610, minRank: 2400,
-    majors: [
-      { name: "化工与制药类", score: 613 },
-      { name: "计算机类", score: 611 },
-      { name: "材料类", score: 608 },
-      { name: "环境科学", score: 606 },
-      { name: "生物工程", score: 605 }
-    ]},
-  { name: "武汉理工大学", code: "10497", tier: "211", region: "湖北", type: "公办",
-    minScore: 600, avgScore: 605, minRank: 2800,
-    majors: [
-      { name: "材料类", score: 608 },
-      { name: "车辆工程", score: 606 },
-      { name: "计算机类", score: 605 },
-      { name: "机械类", score: 602 },
-      { name: "土木类", score: 600 }
-    ]},
-  { name: "华中师范大学", code: "10511", tier: "211", region: "湖北", type: "公办",
-    minScore: 598, avgScore: 603, minRank: 3000,
-    majors: [
-      { name: "数学类", score: 606 },
-      { name: "物理学", score: 603 },
-      { name: "化学", score: 601 },
-      { name: "计算机类", score: 600 },
-      { name: "地理科学", score: 598 }
-    ]},
-  { name: "西南大学", code: "10635", tier: "211", region: "重庆", type: "公办",
-    minScore: 595, avgScore: 600, minRank: 3200,
-    majors: [
-      { name: "教育学", score: 603 },
-      { name: "计算机类", score: 601 },
-      { name: "生物科学", score: 598 },
-      { name: "化学", score: 596 },
-      { name: "农学", score: 595 }
-    ]},
-  { name: "西南交通大学", code: "10613", tier: "211", region: "四川", type: "公办",
-    minScore: 598, avgScore: 603, minRank: 3000,
-    majors: [
-      { name: "交通运输", score: 607 },
-      { name: "土木工程", score: 604 },
-      { name: "机械类", score: 601 },
-      { name: "电气工程", score: 602 },
-      { name: "计算机类", score: 603 }
-    ]},
-  { name: "河海大学", code: "10294", tier: "211", region: "江苏", type: "公办",
-    minScore: 596, avgScore: 601, minRank: 3100,
-    majors: [
-      { name: "水利工程", score: 605 },
-      { name: "土木工程", score: 602 },
-      { name: "环境科学", score: 599 },
-      { name: "计算机类", score: 600 },
-      { name: "地质工程", score: 596 }
-    ]},
-  { name: "中国地质大学（武汉）", code: "10491", tier: "211", region: "湖北", type: "公办",
-    minScore: 592, avgScore: 597, minRank: 3400,
-    majors: [
-      { name: "地质学", score: 600 },
-      { name: "地质工程", score: 598 },
-      { name: "环境科学", score: 595 },
-      { name: "计算机类", score: 596 },
-      { name: "测绘类", score: 593 }
-    ]},
-  { name: "中国矿业大学", code: "10290", tier: "211", region: "江苏", type: "公办",
-    minScore: 590, avgScore: 595, minRank: 3600,
-    majors: [
-      { name: "矿业类", score: 596 },
-      { name: "安全工程", score: 595 },
-      { name: "机械类", score: 593 },
-      { name: "计算机类", score: 594 },
-      { name: "环境科学", score: 590 }
-    ]},
-  { name: "中国石油大学（华东）", code: "10425", tier: "211", region: "山东", type: "公办",
-    minScore: 588, avgScore: 593, minRank: 3800,
-    majors: [
-      { name: "石油工程", score: 596 },
-      { name: "化工与制药类", score: 593 },
-      { name: "机械类", score: 591 },
-      { name: "计算机类", score: 592 },
-      { name: "环境科学", score: 588 }
-    ]},
-  { name: "贵州大学", code: "10657", tier: "211", region: "贵州", type: "公办",
-    minScore: 565, avgScore: 575, minRank: 6000,
-    majors: [
-      { name: "计算机类", score: 580 },
-      { name: "电气工程", score: 577 },
-      { name: "土木工程", score: 572 },
-      { name: "化学工程", score: 568 },
-      { name: "农学", score: 565 },
-      { name: "冶金工程", score: 566 },
-      { name: "矿业类", score: 565 }
-    ]},
-  { name: "云南大学", code: "10673", tier: "211", region: "云南", type: "公办",
-    minScore: 580, avgScore: 585, minRank: 4500,
-    majors: [
-      { name: "计算机类", score: 588 },
-      { name: "大气科学", score: 585 },
-      { name: "生态学", score: 582 },
-      { name: "化学", score: 581 },
-      { name: "地质学", score: 580 }
-    ]},
-  { name: "海南大学", code: "10589", tier: "211", region: "海南", type: "公办",
-    minScore: 575, avgScore: 580, minRank: 5000,
-    majors: [
-      { name: "计算机类", score: 583 },
-      { name: "旅游管理", score: 579 },
-      { name: "海洋科学", score: 577 },
-      { name: "材料类", score: 576 },
-      { name: "农学", score: 575 }
-    ]},
-  { name: "广西大学", code: "10593", tier: "211", region: "广西", type: "公办",
-    minScore: 572, avgScore: 577, minRank: 5300,
-    majors: [
-      { name: "土木工程", score: 580 },
-      { name: "计算机类", score: 579 },
-      { name: "电气工程", score: 577 },
-      { name: "化学工程", score: 574 },
-      { name: "农学", score: 572 }
-    ]},
-
-  // ===== 双一流 / 重点本科 =====
-  { name: "南方科技大学", code: "14325", tier: "double", region: "广东", type: "公办",
-    minScore: 620, avgScore: 628, minRank: 1500,
-    majors: [
-      { name: "计算机科学与技术", score: 630 },
-      { name: "物理学", score: 627 },
-      { name: "化学", score: 623 },
-      { name: "生物科学", score: 621 },
-      { name: "数学", score: 625 }
-    ]},
-  { name: "上海科技大学", code: "14423", tier: "double", region: "上海", type: "公办",
-    minScore: 618, avgScore: 625, minRank: 1600,
-    majors: [
-      { name: "计算机科学与技术", score: 628 },
-      { name: "电子信息工程", score: 625 },
-      { name: "材料科学", score: 620 },
-      { name: "生物科学", score: 618 }
-    ]},
-  { name: "湘潭大学", code: "10530", tier: "double", region: "湖南", type: "公办",
-    minScore: 575, avgScore: 580, minRank: 5000,
-    majors: [
-      { name: "数学", score: 583 },
-      { name: "化学", score: 579 },
-      { name: "材料科学", score: 577 },
-      { name: "计算机类", score: 578 },
-      { name: "法学", score: 576 }
-    ]},
-  { name: "成都理工大学", code: "10616", tier: "double", region: "四川", type: "公办",
-    minScore: 570, avgScore: 575, minRank: 5500,
-    majors: [
-      { name: "地质学", score: 578 },
-      { name: "核工程", score: 575 },
-      { name: "计算机类", score: 574 },
-      { name: "环境科学", score: 571 },
-      { name: "土木工程", score: 570 }
-    ]},
-  { name: "南京邮电大学", code: "10293", tier: "double", region: "江苏", type: "公办",
-    minScore: 605, avgScore: 610, minRank: 2400,
-    majors: [
-      { name: "通信工程", score: 613 },
-      { name: "计算机类", score: 612 },
-      { name: "电子信息工程", score: 609 },
-      { name: "自动化", score: 607 },
-      { name: "信息安全", score: 608 }
-    ]},
-  { name: "南京信息工程大学", code: "10300", tier: "double", region: "江苏", type: "公办",
-    minScore: 590, avgScore: 595, minRank: 3600,
-    majors: [
-      { name: "大气科学", score: 598 },
-      { name: "计算机类", score: 596 },
-      { name: "电子信息类", score: 594 },
-      { name: "环境科学", score: 591 },
-      { name: "地理信息科学", score: 590 }
-    ]},
-
-  // ===== 普通本科 =====
-  { name: "贵州师范大学", code: "10663", tier: "regular", region: "贵州", type: "公办",
-    minScore: 530, avgScore: 545, minRank: 10000,
-    majors: [
-      { name: "数学与应用数学", score: 550 },
-      { name: "物理学", score: 545 },
-      { name: "化学", score: 542 },
-      { name: "地理科学", score: 540 },
-      { name: "计算机类", score: 538 },
-      { name: "生物科学", score: 535 },
-      { name: "教育学", score: 532 }
-    ]},
-  { name: "贵州医科大学", code: "10660", tier: "regular", region: "贵州", type: "公办",
-    minScore: 535, avgScore: 550, minRank: 9000,
-    majors: [
-      { name: "临床医学", score: 560 },
-      { name: "口腔医学", score: 558 },
-      { name: "药学", score: 545 },
-      { name: "医学检验", score: 540 },
-      { name: "护理学", score: 535 }
-    ]},
-  { name: "贵州财经大学", code: "10671", tier: "regular", region: "贵州", type: "公办",
-    minScore: 510, avgScore: 525, minRank: 14000,
-    majors: [
-      { name: "会计学", score: 535 },
-      { name: "金融学", score: 530 },
-      { name: "经济学", score: 525 },
-      { name: "计算机类", score: 520 },
-      { name: "数据科学", score: 515 }
-    ]},
-  { name: "贵州民族大学", code: "10672", tier: "regular", region: "贵州", type: "公办",
-    minScore: 505, avgScore: 518, minRank: 15000,
-    majors: [
-      { name: "法学", score: 525 },
-      { name: "计算机类", score: 520 },
-      { name: "化学工程", score: 515 },
-      { name: "环境科学", score: 510 },
-      { name: "民族学", score: 505 }
-    ]},
-  { name: "遵义医科大学", code: "10661", tier: "regular", region: "贵州", type: "公办",
-    minScore: 530, avgScore: 545, minRank: 10000,
-    majors: [
-      { name: "临床医学", score: 555 },
-      { name: "口腔医学", score: 550 },
-      { name: "麻醉学", score: 545 },
-      { name: "药学", score: 535 },
-      { name: "护理学", score: 530 }
-    ]},
-  { name: "贵州理工学院", code: "14440", tier: "regular", region: "贵州", type: "公办",
-    minScore: 490, avgScore: 505, minRank: 18000,
-    majors: [
-      { name: "电气工程", score: 510 },
-      { name: "机械类", score: 505 },
-      { name: "土木工程", score: 500 },
-      { name: "化学工程", score: 495 },
-      { name: "采矿工程", score: 490 }
-    ]},
-  { name: "贵阳学院", code: "10976", tier: "regular", region: "贵州", type: "公办",
-    minScore: 480, avgScore: 495, minRank: 20000,
-    majors: [
-      { name: "计算机类", score: 500 },
-      { name: "电子信息工程", score: 495 },
-      { name: "化学", score: 490 },
-      { name: "生物科学", score: 485 },
-      { name: "材料科学", score: 480 }
-    ]},
-  { name: "重庆邮电大学", code: "10617", tier: "regular", region: "重庆", type: "公办",
-    minScore: 590, avgScore: 598, minRank: 3600,
-    majors: [
-      { name: "通信工程", score: 602 },
-      { name: "计算机类", score: 600 },
-      { name: "电子信息工程", score: 596 },
-      { name: "自动化", score: 593 },
-      { name: "大数据", score: 591 }
-    ]},
-  { name: "杭州电子科技大学", code: "10336", tier: "regular", region: "浙江", type: "公办",
-    minScore: 595, avgScore: 602, minRank: 3200,
-    majors: [
-      { name: "计算机类", score: 605 },
-      { name: "电子信息工程", score: 602 },
-      { name: "通信工程", score: 600 },
-      { name: "自动化", score: 597 },
-      { name: "网络安全", score: 595 }
-    ]},
-  { name: "深圳大学", code: "10590", tier: "regular", region: "广东", type: "公办",
-    minScore: 605, avgScore: 612, minRank: 2400,
-    majors: [
-      { name: "计算机类", score: 615 },
-      { name: "电子信息工程", score: 612 },
-      { name: "建筑学", score: 610 },
-      { name: "金融学", score: 608 },
-      { name: "光电信息", score: 605 }
-    ]},
-  { name: "昆明理工大学", code: "10674", tier: "regular", region: "云南", type: "公办",
-    minScore: 555, avgScore: 565, minRank: 7500,
-    majors: [
-      { name: "冶金工程", score: 570 },
-      { name: "矿业类", score: 565 },
-      { name: "计算机类", score: 567 },
-      { name: "材料类", score: 560 },
-      { name: "环境科学", score: 555 }
-    ]},
-  { name: "成都信息工程大学", code: "10621", tier: "regular", region: "四川", type: "公办",
-    minScore: 555, avgScore: 563, minRank: 7500,
-    majors: [
-      { name: "大气科学", score: 568 },
-      { name: "计算机类", score: 565 },
-      { name: "电子信息工程", score: 562 },
-      { name: "通信工程", score: 560 },
-      { name: "统计学", score: 555 }
-    ]},
-];
+// 院校数据库 - 基于2025年贵州高考本科批投档数据
+// 数据来源: 贵州省2025年高考普通类本科批投档情况
 
 // 科目选择逻辑
 const subjectEmoji = { '物理': '⚛️', '历史': '📜', '化学': '🧪', '生物': '🧬', '地理': '🌍', '政治': '⚖️' };
@@ -1319,6 +704,9 @@ function search() {
   const tier = document.getElementById('tier').value;
   const combo = getSubjectCombo();
 
+  // 根据首选科目更新数据源
+  const data = getUniversities();
+
   if (!score || score < 0 || score > 750) {
     alert('请输入有效的高考分数（0-750）');
     return;
@@ -1330,31 +718,32 @@ function search() {
   }
 
   // 过滤
-  let results = universities.filter(u => {
+  let results = data.filter(u => {
     if (region !== 'all' && u.region !== region) return false;
     if (tier !== 'all' && u.tier !== tier) return false;
-    // 分数范围：低于最低分20分以内都可以考虑（冲一冲）
-    return u.minScore - 20 <= score;
+    // 分数范围：用minScore（录取线）参考，低于30分以内都显示
+    return score >= u.minScore - 30;
   });
 
-  // 分类
+  // 分类 - 使用minScore（录取线）作为参考
   results = results.map(u => {
     let type;
-    const diff = score - u.minScore;
-    if (diff < 0) {
-      type = 'rush'; // 冲
+    const refScore = u.minScore;
+    const diff = score - refScore;
+    if (diff < -10) {
+      type = 'rush'; // 冲：低于录取线10分以上
     } else if (diff <= 15) {
-      type = 'stable'; // 稳
+      type = 'stable'; // 稳：在录取线附近（-10 ~ +15）
     } else {
-      type = 'safe'; // 保
+      type = 'safe'; // 保：高于录取线15分以上
     }
 
     // 用位次修正判断（如果有位次）
     if (rank && u.minRank) {
       const rankDiff = (rank - u.minRank) / u.minRank;
-      if (rankDiff > 0.3) type = 'safe';
-      else if (rankDiff > -0.1) type = 'stable';
-      else type = 'rush';
+      if (rankDiff > 0.2) type = 'rush';      // 位次比录取位次差20%以上 → 冲
+      else if (rankDiff > -0.15) type = 'stable'; // 位次接近录取位次 → 稳
+      else type = 'safe';                       // 位次优于录取位次15%以上 → 保
     }
 
     return { ...u, type, diff: score - u.minScore };
@@ -1443,9 +832,9 @@ function render() {
 
 function renderCard(u) {
   const typeLabel = { rush: '冲一冲', stable: '稳一稳', safe: '保一保' };
-  const tierTag = u.tier === '985' ? '<span class="tag tag-985">985</span>' 
+  const tierTag = u.tier === '985' ? '<span class="tag tag-985">985</span>'
     : u.tier === '211' ? '<span class="tag tag-211">211</span>'
-    : u.tier === 'double' ? '<span class="tag tag-double">双一流</span>'
+    : u.tier === '双一流' ? '<span class="tag tag-double">双一流</span>'
     : '';
   const typeTag = u.type === 'public' ? '' : '';
 
@@ -1474,7 +863,7 @@ function renderCard(u) {
           ${u.majors.map(m => `
             <div class="major-item">
               <span>${m.name}</span>
-              <span class="major-score">${m.score}分</span>
+              <span class="major-score">${m.score}分${m.rank ? ' · 位次' + m.rank.toLocaleString() : ''}</span>
             </div>
           `).join('')}
         </div>
@@ -1512,15 +901,15 @@ function exportCSV() {
 
   const score = document.getElementById('score').value;
   const typeLabel = { rush: '冲一冲', stable: '稳一稳', safe: '保一保' };
-  const tierLabel = { '985': '985', '211': '211', 'double': '双一流', 'regular': '普通本科' };
+  const tierLabel = { '985': '985', '211': '211', 'double': '双一流', 'regular': '普通本科', '双一流': '双一流', '普通本科': '普通本科' };
 
   // BOM for Excel Chinese support
   let csv = '\uFEFF院校名称,院校层次,所在地区,录取类型,最低分,平均分,最低位次,与分数线差,可选专业\n';
 
   currentResults.forEach(u => {
-    const majors = u.majors.map(m => `${m.name}(${m.score}分)`).join(' | ');
+    const majors = u.majors.map(m => `${m.name}(${m.score}分${m.rank ? " 位次"+m.rank : ""})`).join(' | ');
     const diff = u.diff >= 0 ? `+${u.diff}` : `${u.diff}`;
-    csv += `"${u.name}","${tierLabel[u.tier]}","${u.region}","${typeLabel[u.type]}",${u.minScore},${u.avgScore},${u.minRank},"${diff}","${majors}"\n`;
+    csv += `"${u.name}","${tierLabel[u.tier]||u.tier}","${u.region}","${typeLabel[u.type]}",${u.minScore},${u.avgScore},${u.minRank},"${diff}","${majors}"\n`;
   });
 
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
